@@ -1,5 +1,3 @@
-Created on 02.12.2016
-
 @author: weichslgartner
 '''
 import re
