@@ -32,6 +32,7 @@ with open('input6.dat') as file:
     for line in file:
         line = re.sub('\n','',line)
         for j in range(0, len(line)):
+            #init
             if i==0:
                 listofdics.append({})  
             addToDict(listofdics[j],line[j])
