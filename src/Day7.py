@@ -16,6 +16,8 @@ def isSSL(candidates, brackets):
             if bab in bracket:
                 return True
     return ssl
+
+
 def sslCandidates(word):
     candidates = []
     for i in range(1,len(word)-1):
@@ -60,5 +62,7 @@ with open('input7.dat') as file:
             countTLS+=1
         if isSSL(sslCandidates(line_clean),brackets):
             countSSL+=1
+            
+            
 print("# TLS: {0}".format(countTLS))
 print("# SSL: {0}".format(countSSL))
