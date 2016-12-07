@@ -16,8 +16,8 @@ def sortDicsAndPrintFrequent(listofdics):
     leastFrequent = ''
     for dic in listofdics:
         sortedDics = sorted(dic.items(),key = lambda x: x[1],reverse=True)
-        mostFrequent +=sortedDics[0][0]
-        leastFrequent  +=sortedDics[len(dic)-1][0]
+        mostFrequent  += sortedDics[0][0]
+        leastFrequent += sortedDics[-1][0]
     print("Part 1: "+mostFrequent)    
     print("Part 2: "+leastFrequent)
     
