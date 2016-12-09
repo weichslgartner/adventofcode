@@ -18,12 +18,12 @@ def isvisited(x,y,visited):
         print("Crossing Point x:{0} y:{1} Manhattan Distance {2}" .format(x,y,abs(x)+abs(y)))   
     else:
         visited.add((x,y))  
-  #      print( visited)
+#       print( visited)
     
 def putToSet(x_src,y_src,x_dest,y_dest,visited):
     x_cur = x_src
     y_cur= y_src
- #   print("{0} {1} {2} {3}" .format(x_src,y_src,x_dest,y_dest))
+#   print("{0} {1} {2} {3}" .format(x_src,y_src,x_dest,y_dest))
     while x_cur != x_dest or y_cur != y_dest:
         if x_cur < x_dest:
             x_cur += 1
@@ -94,6 +94,6 @@ with open('input1.dat') as file:
                     putToSet(x,y,x+dist,y,visited)
                     x=x+dist   
                     currentDir = Dir.east
-         #   print(visited)        
+        #   print(visited)        
  
     print("Final destination: x:{0} y:{1} Manhattan Distance {2}" .format(x,y,abs(x)+abs(y)))   
