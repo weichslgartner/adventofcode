@@ -46,11 +46,11 @@ def rotateRow(array,row,value):
         array[row][x] = oldrow[(x-value) % (len(array[0]))]    
         
 def countOnes(array):     
-    sum=0
+    sumones=0
     for y in range(len(array)):
         for x in range(len(array[0])):
-            sum += array[y][x]
-    return sum       
+            sumones += array[y][x]
+    return sumones       
         
 WDITH = 50
 HEIGTH =6              
