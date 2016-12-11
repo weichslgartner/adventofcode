@@ -51,7 +51,7 @@ def countOnes(array):
         for x in range(len(array[0])):
             sumones += array[y][x]
     return sumones       
-        
+   
 WDITH = 50
 HEIGTH =6              
 padArray = [[0 for x in range(WDITH)] for y in range(HEIGTH)]
