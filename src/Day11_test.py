@@ -27,11 +27,11 @@ numberFloors = len(simulatorArray)
 
 
 
-def hash(array):
-    hash = ''
+def hashArray(array):
+    hashArray = ''
     for y in range(numberFloors):
-        hash += ''.join(array[y])
-    return hash    
+        hashArray += ''.join(array[y])
+    return hashArray    
 
 def printArray(array):
     for y in range(numberFloors):
@@ -117,7 +117,7 @@ def possibleMoves(array, vsited):
             newArray[elevatorindex][comb[1]] = '.'
             
             #print (newline)
-            if hash(newArray) not in vsited and isValid(newline) and isValid(newArray[elevatorindex]):
+            if hashArray(newArray) not in vsited and isValid(newline) and isValid(newArray[elevatorindex]):
                 #print(isValid(newline))
                 
                 #printArray(newArray)
@@ -136,7 +136,7 @@ def possibleMoves(array, vsited):
                 newArray[elevatorindex][i] = '.'
                 #print (newline)
                 #print(isValid(newline))
-                if hash(newArray) not in vsited  and  isValid(newline) and isValid(newArray[elevatorindex]):
+                if hashArray(newArray) not in vsited  and  isValid(newline) and isValid(newArray[elevatorindex]):
                     
                    
                     #printArray(newArray)
@@ -145,11 +145,11 @@ def possibleMoves(array, vsited):
     return possiblemoves                
                     
 def solve(simulatorArray,movesdict,numberMoves):
-    if hash(simulatorArray) not in movesdict:
-        movesdict[hash(simulatorArray)] =numberMoves
-    elif movesdict[hash(simulatorArray)] <= numberMoves:
+    if hashArray(simulatorArray) not in movesdict:
+        movesdict[hashArray(simulatorArray)] =numberMoves
+    elif movesdict[hashArray(simulatorArray)] <= numberMoves:
         return
-    if hash(targetArray) == hash(simulatorArray):
+    if hashArray(targetArray) == hashArray(simulatorArray):
         print("Finished: {0}" .format(numberMoves))
         return
     nextMoves = possibleMoves(simulatorArray)
@@ -168,13 +168,13 @@ def solveNew(simulatorArray,movesdict,numberMoves):
         del queue[0]
       
        
-        if hash(current) not in movesdict:
-            movesdict[hash(current)] =numberMoves
-        elif movesdict[hash(current)] <= numberMoves:
+        if hashArray(current) not in movesdict:
+            movesdict[hashArray(current)] =numberMoves
+        elif movesdict[hashArray(current)] <= numberMoves:
             continue
         print("Step: {0}" .format(numberMoves))
         printArray(current)
-        if hash(targetArray) == hash(current):
+        if hashArray(targetArray) == hashArray(current):
             print("Finished: {0}" .format(numberMoves))
             bestFoud = min(numberMoves,bestFoud)
             return
@@ -193,4 +193,4 @@ numberMoves = 0
 
 #solveNew(simulatorArray,movesdict,numberMoves)
 solveNew(simulatorArray,movesdict,numberMoves)
-print(movesdict[hash(targetArray)])
+print(movesdict[hashArray(targetArray)])
