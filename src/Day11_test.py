@@ -3,36 +3,24 @@ Created on 11.12.2016
 
 @author: andreas
 '''
-import copy, re    
-import itertools as it
-#                    E    PrG        PrM    CoG    CoM    CuG    CuM    RuG     RuM    PlG    PlM
-simulatorArrayPart1 = [['.',  '.' ,      '.',    '.',    '.',  '.',   '.',  '.',     '.',  '.',   '.'],
-                  ['.',   '.' ,     '.',    '.',   'CoM',  '.',   'CuM',  '.',     'RuM',  '.',   'PlM'],
-                  ['.' ,  '.' ,     '.' ,   'CoG' , '.', 'CuG',   '.',  'RuG',      '.',  'PlG',   '.'],
-                  ['E' ,  'PrG'  ,  'PrM',  '.',   '.',  '.',   '.',  '.',      '.',  '.',   '.']
+import copy, re
+import itertools
+simulatorArray = [['.',  '.' ,  '.',  '.',   '.'],
+                  ['.',   '.' ,  '.',  'LG' ,  '.'],
+                  ['.' ,  'HG' ,  '.' , '.' ,  '.'],
+                  ['E' ,  '.'  , 'HM',  '.',   'LM']
                   ]
 
-
-
-targetArrayPart1   =  [['E',  'PrG' ,  'PrM',  'CoG', 'CoM',  'CuG',   'CuM',  'RuG',     'RuM',  'PlG',   'PlM'],
-                  ['.',   '.' ,     '.',    '.',   '.',  '.',   '.',  '.',     '.',  '.',   '.'],
-                  ['.' ,  '.' ,     '.' ,   '.' , '.', '.',   '.',  '.',      '.',  '.',   '.'],
-                  ['.' ,  '.'  ,  '.',  '.',   '.',  '.',   '.',  '.',      '.',  '.',   '.']
+test1 =          [['.',  '.' ,  '.',  '.',   '.'],
+                  ['E',   'HG' ,  'HM',  'LG' ,  'LM'],
+                  ['.' ,  '.' ,  '.' , '.' ,  '.'],
+                  ['.' ,  '.'  , '.',  '.',   '.']
                   ]
 
-#                    E    PrG        PrM    CoG    CoM        CuG    CuM    RuG     RuM    PlG    PlM        ElG    ElM    DiG        DiM
-simulatorArray = [['.',  '.' ,      '.',    '.',   '.',       '.',   '.',  '.',     '.',   '.',   '.',      '.',    '.',    '.',    '.'],
-                  ['.',   '.' ,     '.',    '.',   'CoM',     '.',   'CuM',  '.',   'RuM',  '.',   'PlM',   '.',    '.',    '.',    '.'],
-                  ['.' ,  '.' ,     '.' ,   'CoG' , '.',     'CuG',   '.',  'RuG',   '.',  'PlG',   '.' ,   '.',    '.',    '.',    '.'],
-                  ['E' ,  'PrG'  ,  'PrM',  '.',   '.',        '.',   '.',  '.',     '.',  '.',   '.',      'ElG',  'ElM',  'DiG', 'DiM']
-                  ]
-
-
-
-targetArray   =  [['E',  'PrG' ,  'PrM',  'CoG', 'CoM',  'CuG',   'CuM',  'RuG',     'RuM',  'PlG',   'PlM', 'ElG', 'ElM','DiG', 'DiM'],
-                  ['.',   '.' ,     '.',    '.',   '.',  '.',   '.',  '.',     '.',  '.',   '.', '.','.','.','.'],
-                  ['.' ,  '.' ,     '.' ,   '.' , '.', '.',   '.',  '.',      '.',  '.',    '.', '.','.','.','.'],
-                  ['.' ,  '.'  ,  '.',  '.',   '.',  '.',   '.',  '.',      '.',  '.',   '.', '.','.','.','.']
+targetArray    = [['E',  'HG' ,  'HM',  'LG',   'LM'],
+                  ['.',   '.' ,  '.',  '.' ,  '.'],
+                  ['.' ,  '.' ,  '.' , '.' ,  '.'],
+                  ['.' ,  '.'  , '.',  '.',   '.']
                   ]
 
 numberFloors = len(simulatorArray)
@@ -57,9 +45,9 @@ def isValid(line):
     microchips = []
     for token in line:
         if 'M' in token:
-            microchips.append(token) 
+           microchips.append(token) 
         if 'G' in token:
-            generators.append(token) 
+           generators.append(token) 
     for chip in microchips:
         #check if generator exits
         generator =  re.sub('M','G',chip) 
@@ -97,16 +85,14 @@ def getConstantLines(length,*args):
             indices.append(i)
     return indices
 
-
 def entryIndices(line):
     indicies = []
     for i in range(1,len(line)):
         if line[i] != '.':
             indicies.append(i)
     return indicies
-
-
-def possibleMoves(array,visited):
+        
+def possibleMoves(array, vsited):
     elevatorindex = indexElevator(array)
     nextIndex =[]
     possiblemoves = []
@@ -118,7 +104,7 @@ def possibleMoves(array,visited):
     
     for index in nextIndex:
         combs = entryIndices(array[elevatorindex])
-        for comb in it.combinations(combs,2):
+        for comb in itertools.combinations(combs,2):
             newline = copy.deepcopy(array[index])
             newline[0] = 'E'
             
@@ -131,11 +117,13 @@ def possibleMoves(array,visited):
             newArray[elevatorindex][comb[1]] = '.'
             
             #print (newline)
-            if hash(newArray) not in visited and isValid(newline) and isValid(newArray[elevatorindex]):
+            if hash(newArray) not in vsited and isValid(newline) and isValid(newArray[elevatorindex]):
                 #print(isValid(newline))
                 
                 #printArray(newArray)
                 possiblemoves.append(newArray)
+            
+
         for i in range(1,len(array[0])):
 #            
             if array[elevatorindex][i] != '.':
@@ -148,7 +136,7 @@ def possibleMoves(array,visited):
                 newArray[elevatorindex][i] = '.'
                 #print (newline)
                 #print(isValid(newline))
-                if hash(newArray) not in visited and isValid(newline) and isValid(newArray[elevatorindex]):
+                if hash(newArray) not in vsited  and  isValid(newline) and isValid(newArray[elevatorindex]):
                     
                    
                     #printArray(newArray)
@@ -156,12 +144,25 @@ def possibleMoves(array,visited):
                     
     return possiblemoves                
                     
-
 def solve(simulatorArray,movesdict,numberMoves):
+    if hash(simulatorArray) not in movesdict:
+        movesdict[hash(simulatorArray)] =numberMoves
+    elif movesdict[hash(simulatorArray)] <= numberMoves:
+        return
+    if hash(targetArray) == hash(simulatorArray):
+        print("Finished: {0}" .format(numberMoves))
+        return
+    nextMoves = possibleMoves(simulatorArray)
+    print("Step {0}" .format(numberMoves+1))
+    for move in nextMoves:
+        print()
+        printArray(move)
+        solve(move,movesdict,numberMoves+1)
+        
+def solveNew(simulatorArray,movesdict,numberMoves):
     queue = []
     queue.append((simulatorArray,numberMoves))
     bestFoud = 10000000
-    currentStep = -1
     while len(queue) >0:
         current,numberMoves = queue[0]
         del queue[0]
@@ -171,10 +172,8 @@ def solve(simulatorArray,movesdict,numberMoves):
             movesdict[hash(current)] =numberMoves
         elif movesdict[hash(current)] <= numberMoves:
             continue
-        if numberMoves > currentStep:
-            print("Step: {0} size: {1}" .format(numberMoves, len(queue)))
-            currentStep+=1
-        #printArray(current)
+        print("Step: {0}" .format(numberMoves))
+        printArray(current)
         if hash(targetArray) == hash(current):
             print("Finished: {0}" .format(numberMoves))
             bestFoud = min(numberMoves,bestFoud)
@@ -193,5 +192,5 @@ numberMoves = 0
 
 
 #solveNew(simulatorArray,movesdict,numberMoves)
-solve(simulatorArray,movesdict,numberMoves)
+solveNew(simulatorArray,movesdict,numberMoves)
 print(movesdict[hash(targetArray)])
