@@ -127,8 +127,9 @@ if __name__ == '__main__':
     sp = shortestPath(start, dest, maze, distanceMatrix)
     print("Part 1: " +str(sp))
     dest = Point(50,50)
-    distanceMatrix = createDistantMatrix(height,width,defaultNode) 
+    #distanceMatrix = createDistantMatrix(height,width,defaultNode) 
     shortestPath(start, dest, maze, distanceMatrix)
     distinctPlaces = pointsWithinRange(distanceMatrix,50)
-    print("Part 1: " +str(distinctPlaces))
+    print("Part 2: " +str(distinctPlaces))
+    printDistanceMatrix(distanceMatrix)
     
