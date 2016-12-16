@@ -9,6 +9,8 @@ Created on 15.12.2016
 
 import re
 
+
+
 def parseFile(fileName, numberPositions, startingPosition):
     with open(fileName) as file:
         for line in file:
@@ -26,8 +28,8 @@ def allZeros(array):
 def discPositions(time,numberPositions,startingPosition):
     positions = [0]*len(numberPositions)
     time +=1
-    for disc in range(len(numberPositions)):
-        positions[disc]=(startingPosition[disc] + time) % numberPositions[disc]
+    for disc, number in enumerate(numberPositions):
+        positions[disc]=(startingPosition[disc] + time) % number
         time +=1
     return positions
 
