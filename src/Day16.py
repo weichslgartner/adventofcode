@@ -18,7 +18,6 @@ def dragonFractal(inputString):
 
 def generateCheckSum(word):
     resultList = []
-    resultString = ''
     for i in range(0,len(word)-1,2):
         if word[i:i+2] == '11' or word[i:i+2] == '00':
             resultList.append('1')
