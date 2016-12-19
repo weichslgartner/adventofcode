@@ -36,4 +36,4 @@ while len(puzzleInput) < desiredLength:
     
     
 
-print(generateCheckSum(puzzleInput[0:desiredLength]))
+print(generateCheckSum(puzzleInput[:desiredLength]))
