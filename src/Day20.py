@@ -6,7 +6,7 @@ Created on 20.12.2016
 
 from heapq import heappush, heappop
 from collections import namedtuple
-
+import time
 
 Range = namedtuple('Range',['begin', 'end'])
 
@@ -41,10 +41,15 @@ def findNonBlockedIps(ipList):
 debugPrint = False
 MAXIP=4294967295
 ipList =  []
+start = time.time()
 with open('input20.dat') as file:
     for line in file:
         line.strip()
         tokens = line.split("-")
         heappush(ipList, Range(int(tokens[0]),int(tokens[1])))
-    lowest, allowed =findNonBlockedIps(ipList)
-    print("Lowest IP: {0} \nNumber of allowed IPs: {1}".format(lowest, allowed))
+
+lowest, allowed =findNonBlockedIps(ipList)
+end = time.time()
+print(end - start)
+
+print("Lowest IP: {0} \nNumber of allowed IPs: {1}".format(lowest, allowed))
