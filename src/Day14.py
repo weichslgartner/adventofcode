@@ -1,7 +1,7 @@
 import hashlib, sys, re
 
-input ="ngcjuoqr"
-#input ="abc"
+start ="ngcjuoqr"
+#start ="abc"
 
 def checkFiveTimesNextThousands(hash,currettriplet, i,fivelet,onetimepads):
     letter5 = fivelet[0]
@@ -36,7 +36,7 @@ def stretchHash(word,times):
 
 def findValidOneTimePads(part2,onetimepads, currettriplet ):
     for i in range(0,24000):
-        word = input + str(i)
+        word = start + str(i)
         m = hashlib.md5(word.encode('ascii'))
         #print(word)
         hashValue = m.hexdigest()
