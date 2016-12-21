@@ -22,7 +22,7 @@ def rotateRight(stringList,steps):
 
 def reverse(stringList,start, end):
     tmplist = list(reversed(stringList[start:end+1]))
-    print(stringList[5::-1])
+    #print(stringList[5::-1])
     return  stringList[:start] + tmplist + stringList[end+1:]
 
 def move(stringList,src, dst):
@@ -58,5 +58,5 @@ with open('input21.dat') as file:
                
             
             
-        print(stringList)
+        #print(stringList)
 print(''.join(stringList))
