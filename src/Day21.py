@@ -92,7 +92,7 @@ print(''.join(stringList))
 
 
 start = 'fbgdceah'
-stringList2= list(start)
+stringList= list(start)
 for permutation in permutations(stringList):
     permuated = scramble(list(permutation), lines, False)  
     if ''.join(permuated) == start:
