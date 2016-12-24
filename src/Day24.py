@@ -92,10 +92,10 @@ def fillAdjacencyMatrix(maze, destDict, width, height, adjacencyMatrix, defaultN
         start = outerValue
         distanceMatrix = createDistantMatrix(height, width, defaultNode)
         for innerKey, innerValue in destDict.items(): 
-            if innerKey < outerKey:
+            if innerKey <= outerKey:
                 continue
             print("from {0} to {1}".format(outerKey, innerKey)) #printDistanceMatrix(distanceMatrix)
-            print(destDict)
+            #print(destDict)
             dest = innerValue
             sp = shortestPath(start, dest, maze, distanceMatrix)
             adjacencyMatrix[outerKey][innerKey] = sp
