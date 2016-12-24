@@ -1,16 +1,8 @@
 '''
-Created on 13.12.2016
-
-@author: weichslgartner
-
-
-
-
-
+Created on 24.12.2016
 
 '''
 
-import queue
 from collections import namedtuple
 import copy
 import sys
@@ -20,9 +12,12 @@ from itertools import permutations
 import itertools
 from heapq import heappush, heappop
 
+WALL = '#'
+NOWALL = '.'
+Point = namedtuple('Point', ['x', 'y'])
+initPoint = Point(-1,-1)
+
 class PrioQu:
-    
-    
     def __init__(self):
         self.pq = []                         # list of entries arranged in a heap
         self.entry_finder = {}               # mapping of tasks to entries
@@ -66,13 +61,9 @@ class Node:
         self.cost = cost
         
     
-designerNumber = 10
-WALL = '#'
-NOWALL = '.'
-Point = namedtuple('Point', ['x', 'y'])
-initPoint = Point(-1,-1)
 
-def findShortestRouteAndRoundTrip(destDict, adjacentMatrix):
+
+def findShortestRouteAndRoundTrip(destDict, adjacencyMatrix):
     destList = list(destDict.keys())
     destList.remove(0)
     shortestRoute = sys.maxsize
@@ -84,9 +75,9 @@ def findShortestRouteAndRoundTrip(destDict, adjacentMatrix):
         currShortestRoundTrip = 0
     #permutedList =[0,4,1,2,3]
         for cur, next in zip(permutedList[:-1], permutedList[1:]):
-            currShortestRoute += adjacentMatrix[cur][next]
+            currShortestRoute += adjacencyMatrix[cur][next]
         
-        currShortestRoundTrip = currShortestRoute + adjacentMatrix[permutedList[-1]][0]
+        currShortestRoundTrip = currShortestRoute + adjacencyMatrix[permutedList[-1]][0]
         shortestRoundTrip = min(currShortestRoundTrip, shortestRoundTrip)
         shortestRoute = min(currShortestRoute, shortestRoute)
     
@@ -138,7 +129,7 @@ def printDistanceMatrix(array):
             print(element.cost, end = "\t")
         print()
 
-def printAdjacentMatrix(array):
+def printAdjacencyMatrix(array):
     for line in array:
         for char in line:
             print(char, end = "\t")
@@ -222,15 +213,12 @@ if __name__ == '__main__':
     printMaze(maze)
     width = len(maze[0])
     height = len(maze)
-    adjacentMatrix = [[-1]*len(destDict) for i in range (len(destDict))]
+    adjacencyMatrix = [[-1]*len(destDict) for i in range (len(destDict))]
     defaultNode = Node((-1,-1),100000)
     distanceMatrix = createDistantMatrix(height,width,defaultNode)
-    #sp = shortestPath(destDict[0], destDict[5], maze, distanceMatrix)
-    #node = Node(start,3)
-    #print(sp)
-   
-    fillAdjacencyMatrix(maze, destDict, width, height, adjacentMatrix, defaultNode, distanceMatrix)
+
+    fillAdjacencyMatrix(maze, destDict, width, height, adjacencyMatrix, defaultNode, distanceMatrix)
     
-    printAdjacentMatrix(adjacentMatrix)
-    findShortestRouteAndRoundTrip(destDict, adjacentMatrix)
+    printAdjacencyMatrix(adjacencyMatrix)
+    findShortestRouteAndRoundTrip(destDict, adjacencyMatrix)
     
