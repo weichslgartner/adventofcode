@@ -68,21 +68,26 @@ def findShortestRouteAndRoundTrip(destDict, adjacencyMatrix):
     destList.remove(0)
     shortestRoute = sys.maxsize
     shortestRoundTrip = sys.maxsize
+    shortestList = []
     for permutation in permutations(destList):
         permutedList = list(permutation)
         permutedList.insert(0, 0) #print(permutedList)
         currShortestRoute = 0
         currShortestRoundTrip = 0
+        tmpList = []
     #permutedList =[0,4,1,2,3]
         for cur, next in zip(permutedList[:-1], permutedList[1:]):
             currShortestRoute += adjacencyMatrix[cur][next]
-        
+            tmpList.append((destDict[cur],destDict[next], adjacencyMatrix[cur][next]))
+        if currShortestRoute == 412:
+            shortestList = tmpList
         currShortestRoundTrip = currShortestRoute + adjacencyMatrix[permutedList[-1]][0]
         shortestRoundTrip = min(currShortestRoundTrip, shortestRoundTrip)
         shortestRoute = min(currShortestRoute, shortestRoute)
     
     print('Part1:', end=" ")
     print(shortestRoute)
+    print(shortestList)
     print('Part2:', end=" ")
     print(shortestRoundTrip)
 
@@ -210,9 +215,12 @@ def getSuccessors(current,maze):
 if __name__ == '__main__':
    
     maze, destDict = readMaze('input24.dat')
+    print(destDict)
     printMaze(maze)
     width = len(maze[0])
     height = len(maze)
+    #print(width)
+   # print(height)
     adjacencyMatrix = [[-1]*len(destDict) for i in range (len(destDict))]
     defaultNode = Node((-1,-1),100000)
     distanceMatrix = createDistantMatrix(height,width,defaultNode)
